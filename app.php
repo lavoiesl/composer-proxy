@@ -8,18 +8,17 @@ $app = new Silex\Application();
 
 $app['title'] = "Composer Proxy JP";
 $app['base_url'] = "http://composer-proxy.jp/";
+$app['repositories'] = array(
+    'packagist'  => 'https://packagist.org',
+);
 
 $config_file = __DIR__ . '/config.ini';
 if (is_file($config_file)) {
-    $config = parse_ini_file($config_file);
+    $config = parse_ini_file($config_file, true);
     foreach ($config as $key => $value) {
         $app[$key] = $value;
     }
 }
-
-$app['repositories'] = array(
-    'packagist' => 'https://packagist.org'
-);
 
 $app['cache_dir'] = __DIR__.'/web/proxy';
 

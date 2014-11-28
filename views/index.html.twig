@@ -23,19 +23,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="span4">
-                        <img src="/top.jpg" alt="Shikumi" style="box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.8);" />
-                    </div>
-                    <div class="span8">
+                    <div class="span12">
                         <h2>How to use?</h2>
-                        1. Setup your <em>$COMPOSER_HOME/config.json</em> (You can edit by <code>composer config -g -e</code>).
+                        1. Setup your <code>$COMPOSER_HOME/config.json</code> (You can edit by <code>composer config -g -e</code>).
                         <pre><code>{
     "repositories": [
-        { "packagist": false },
-        {
-            "type": "composer",
-            "url": "{{ app.base_url }}proxy/packagist"
-        }
+        {"packagist": false},
+{% for repo, url in app.repositories %}
+        {"type": "composer", "url": "{{ app.base_url }}proxy/{{ repo }}"}{% if not loop.last %},{% endif %}
+
+{% endfor %}
     ]
 }</code></pre>
                         2. Enjoy
